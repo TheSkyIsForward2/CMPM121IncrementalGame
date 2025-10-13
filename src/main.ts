@@ -153,7 +153,7 @@ autoIncBuy1.addEventListener("click", () => {
 
   counter -= cost;
   autoInc += 0.1;
-  cost *= 1.1;
+  cost *= 1.15;
   counterElement.innerHTML = counter.toFixed(4);
   autoIncBuy1.innerHTML = "Upgrade: " + cost.toFixed(1);
   upgradeCountElem.innerHTML = (autoInc * 10).toFixed(1);
@@ -168,7 +168,7 @@ autoIncBuy2.addEventListener("click", () => {
 
   counter -= cost2;
   autoInc += 1.0;
-  cost2 *= 1.1;
+  cost2 *= 1.15;
   counterElement.innerHTML = counter.toFixed(4);
   autoIncBuy2.innerHTML = "Upgrade: " + cost2.toFixed(1);
   upgradeCountElem.innerHTML = autoInc.toString();
@@ -183,7 +183,7 @@ autoIncBuy3.addEventListener("click", () => {
 
   counter -= cost3;
   autoInc += 10.0;
-  cost3 *= 1.1;
+  cost3 *= 1.15;
   counterElement.innerHTML = counter.toFixed(4);
   autoIncBuy3.innerHTML = "Upgrade: " + cost3.toFixed(1);
   upgradeCountElem.innerHTML = (autoInc * 10).toString();
