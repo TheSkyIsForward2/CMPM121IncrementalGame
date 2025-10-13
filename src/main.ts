@@ -51,8 +51,9 @@ const availableItems: Item[] = [
 
 // Create basic HTML structure
 
-document.body.style.backgroundImage = "url('https://i.pinimg.com/originals/c5/9a/d2/c59ad2bd4ad2fbacd04017debc679ddb.gif')";
-document.body.style.backgroundSize = "cover";     // make it cover the entire screen
+document.body.style.backgroundImage =
+  "url('https://i.pinimg.com/originals/c5/9a/d2/c59ad2bd4ad2fbacd04017debc679ddb.gif')";
+document.body.style.backgroundSize = "cover"; // make it cover the entire screen
 document.body.style.backgroundPosition = "center"; // center the image
 document.body.style.backgroundRepeat = "no-repeat"; // prevent tiling
 
@@ -168,7 +169,8 @@ const descContainer = document.getElementById("upgradeDescriptions")!;
 
 availableItems.forEach((item) => {
   const desc = document.createElement("p");
-  desc.textContent = item.description + " - " + item.rate.toFixed(1) + " LoC/sec";
+  desc.textContent = item.description + " - " + item.rate.toFixed(1) +
+    " LoC/sec";
   desc.style.margin = "8px"; // remove default spacing
   descContainer.appendChild(desc);
 });
