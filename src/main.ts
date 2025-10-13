@@ -77,7 +77,7 @@ document.body.innerHTML = `
             background-color: #fff;
             cursor: pointer;
           ">
-            Upgrade: <span id="cost">10.0</span>
+            Buy Entry-level programmer: <span id="cost">10.0</span>
           </button>
 
           <button id="autoinc2" style="
@@ -88,7 +88,7 @@ document.body.innerHTML = `
             background-color: #fff;
             cursor: pointer;
           ">
-            Upgrade: <span id="cost2">100.0</span>
+            Buy Server Farm: <span id="cost2">100.0</span>
           </button>
 
           <button id="autoinc3" style="
@@ -99,13 +99,13 @@ document.body.innerHTML = `
             background-color: #fff;
             cursor: pointer;
           ">
-            Upgrade: <span id="cost3">1000.0</span>
+            Buy Senior Software Engineer <span id="cost3">1000.0</span>
           </button>
         </div>
 
         <!-- Middle: Description -->
         <div id="desc" style="
-          text-align: left;
+          text-align: center;
         ">
           <h3 style="margin: 0 0 8px 0;">Description</h3>
           <p style="margin: 0;">Select an upgrade to see its effects here.</p>
@@ -155,7 +155,7 @@ autoIncBuy1.addEventListener("click", () => {
   autoInc += 0.1;
   cost *= 1.15;
   counterElement.innerHTML = counter.toFixed(4);
-  autoIncBuy1.innerHTML = "Upgrade: " + cost.toFixed(1);
+  autoIncBuy1.innerHTML = "Buy Entry-level programmer: " + cost.toFixed(1);
   upgradeCountElem.innerHTML = (autoInc * 10).toFixed(1);
   autoIncreaseElem.innerHTML = autoInc.toFixed(1);
 });
@@ -170,7 +170,7 @@ autoIncBuy2.addEventListener("click", () => {
   autoInc += 1.0;
   cost2 *= 1.15;
   counterElement.innerHTML = counter.toFixed(4);
-  autoIncBuy2.innerHTML = "Upgrade: " + cost2.toFixed(1);
+  autoIncBuy2.innerHTML = "Buy Server Farm: " + cost2.toFixed(1);
   upgradeCountElem.innerHTML = autoInc.toString();
   autoIncreaseElem.innerHTML = autoInc.toFixed(1);
 });
@@ -185,7 +185,7 @@ autoIncBuy3.addEventListener("click", () => {
   autoInc += 10.0;
   cost3 *= 1.15;
   counterElement.innerHTML = counter.toFixed(4);
-  autoIncBuy3.innerHTML = "Upgrade: " + cost3.toFixed(1);
+  autoIncBuy3.innerHTML = "Buy Senior Software Engineer: " + cost3.toFixed(1);
   upgradeCountElem.innerHTML = (autoInc * 10).toString();
   autoIncreaseElem.innerHTML = autoInc.toFixed(1);
 });
