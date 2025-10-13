@@ -124,9 +124,6 @@ button.addEventListener("click", () => {
 });
 
 const upgradeContainer = document.getElementById("upgradeButtons")!;
-const upgradeDescriptionsContainer = document.getElementById(
-  "upgradeDescriptions",
-)!;
 
 // Create Buttons
 availableItems.forEach((item, index) => {
