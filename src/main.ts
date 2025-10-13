@@ -36,7 +36,7 @@ document.body.innerHTML = `
         padding: 0;
       ">
         <h1 style="margin: 10;">CMPM 121 D1 Assignment</h1>
-        <p style="margin: 4px 20;">Counter: <span id="counter">0.0</span></p>
+        <p style="margin: 4px 20;">Lines of Code: <span id="counter">0.0</span></p>
         <p style="margin: 4px 0;"><span id="autoIncrease">0.0</span> lines of code per second</p>
       </div>
       
