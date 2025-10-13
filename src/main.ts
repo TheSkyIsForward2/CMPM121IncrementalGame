@@ -33,11 +33,31 @@ const availableItems: Item[] = [
     numberOf: 0,
     description: "For when humans aren't enough",
   },
+  {
+    name: "Programmer Prodigy",
+    cost: 10000,
+    rate: 350,
+    numberOf: 0,
+    description: "Every company has one",
+  },
+  {
+    name: "Coding Jesus",
+    cost: 100000,
+    rate: 800,
+    numberOf: 0,
+    description: "Did I stutter?",
+  },
 ];
 
 // Create basic HTML structure
 
+document.body.style.backgroundImage = "url('https://i.pinimg.com/originals/c5/9a/d2/c59ad2bd4ad2fbacd04017debc679ddb.gif')";
+document.body.style.backgroundSize = "cover";     // make it cover the entire screen
+document.body.style.backgroundPosition = "center"; // center the image
+document.body.style.backgroundRepeat = "no-repeat"; // prevent tiling
+
 document.body.innerHTML = `
+
   <div style="
     display: flex;
     justify-content: center;
@@ -62,7 +82,7 @@ document.body.innerHTML = `
         margin: 0;
         padding: 0;
       ">
-        <h1 style="margin: 10;">CMPM 121 D1 Assignment</h1>
+        <h1 style="margin: 10;">Crack The Code</h1>
         <p style="margin: 4px 20;">Lines of Code: <span id="counter">0.0</span></p>
         <p style="margin: 4px 0;"><span id="autoIncrease">0.0</span> lines of code per second</p>
       </div>
@@ -148,8 +168,8 @@ const descContainer = document.getElementById("upgradeDescriptions")!;
 
 availableItems.forEach((item) => {
   const desc = document.createElement("p");
-  desc.textContent = item.description;
-  desc.style.margin = "7px"; // remove default spacing
+  desc.textContent = item.description + " - " + item.rate.toFixed(1) + " LoC/sec";
+  desc.style.margin = "8px"; // remove default spacing
   descContainer.appendChild(desc);
 });
 
