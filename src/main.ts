@@ -1,12 +1,39 @@
 import "./style.css";
 
 let counter: number = 0.0;
-
-const playerInc: number = 1.0;
 let autoInc: number = 0.0;
-let cost: number = 10.0;
-let cost2: number = 100.0;
-let cost3: number = 1000.0;
+
+interface Item {
+  name: string;
+  cost: number;
+  rate: number;
+  numberOf: number;
+  description: string;
+}
+
+const availableItems: Item[] = [
+  {
+    name: "Entry-Level Programmers",
+    cost: 10,
+    rate: 0.1,
+    numberOf: 0,
+    description: "They're all you can afford",
+  },
+  {
+    name: "Senior Software Engineers",
+    cost: 100,
+    rate: 2,
+    numberOf: 0,
+    description: "The backbone of any good operation",
+  },
+  {
+    name: "Server Farms",
+    cost: 1000,
+    rate: 50,
+    numberOf: 0,
+    description: "For when humans aren't enough",
+  },
+];
 
 // Create basic HTML structure
 
@@ -56,73 +83,30 @@ document.body.innerHTML = `
       <!-- Bottom section: 3 columns -->
       <div style="
         display: grid;
-        grid-template-columns: 1fr 2fr 1fr; /* three columns: left, middle, right */
+        grid-template-columns: 1fr 1fr;
         align-items: start;
         width: 100%;
         gap: 20px;
         margin-top: 20px;
       ">
-        <!-- Left: Upgrade buttons -->
-        <div style="
+         <!-- Left column: dynamic buttons -->
+        <div id="upgradeButtons" style="
+          display: flex; flex-direction: column;
+          align-items: flex-start; gap: 15px;
+        "></div>
+
+        <!-- Middle: Description (for later) -->
+        <div id="upgradeDescriptions" style="
+          display: flex; flex-direction: column;
+          align-items: flex-start; gap: 15px;
+        "></div>
+
+        <!-- Right: Number of upgrades -->
+        <div id="upgradeCounts" style="
           display: flex;
           flex-direction: column;
           align-items: flex-start;
-          gap: 15px;
-        ">
-          <button id="autoinc" style="
-            font-size: 16px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            background-color: #fff;
-            cursor: pointer;
-          ">
-            Buy Entry-level programmer: <span id="cost">10.0</span>
-          </button>
-
-          <button id="autoinc2" style="
-            font-size: 16px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            background-color: #fff;
-            cursor: pointer;
-          ">
-            Buy Server Farm: <span id="cost2">100.0</span>
-          </button>
-
-          <button id="autoinc3" style="
-            font-size: 16px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            background-color: #fff;
-            cursor: pointer;
-          ">
-            Buy Senior Software Engineer <span id="cost3">1000.0</span>
-          </button>
-        </div>
-
-        <!-- Middle: Description -->
-        <div id="desc" style="
-          text-align: center;
-        ">
-          <h3 style="margin: 0 0 8px 0;">Description</h3>
-          <p style="margin: 0;">Select an upgrade to see its effects here.</p>
-        </div>
-
-        <!-- Right: Number of upgrades -->
-        <div style="
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: flex-start;
-          background-color: rgba(255,255,255,0.3);
-          border-radius: 8px;
-          padding: 10px;
-        ">
-          <h3 style="margin: 0 0 8px 0;">Upgrades</h3>
-          <p style="margin: 0;">Owned: <span id="upgradeCount">0</span></p>
+          gap: 10px;">
         </div>
       </div>
     </div>
@@ -131,65 +115,75 @@ document.body.innerHTML = `
 
 // Add click handler
 const button = document.getElementById("playerinc")!;
-const counterElement = document.getElementById("counter")!;
-const upgradeCountElem = document.getElementById("upgradeCount")!;
+const counterDisplay = document.getElementById("counter")!;
 const autoIncreaseElem = document.getElementById("autoIncrease")!;
 
-// Add autoInc buys
-const autoIncBuy1 = document.getElementById("autoinc")!;
-const autoIncBuy2 = document.getElementById("autoinc2")!;
-const autoIncBuy3 = document.getElementById("autoinc3")!;
-
 button.addEventListener("click", () => {
-  counter += playerInc;
-  counterElement.innerHTML = counter.toFixed(4);
+  counter += 1;
+  counterDisplay.innerHTML = counter.toFixed(4);
 });
 
-autoIncBuy1.addEventListener("click", () => {
-  // upgrade AutoInc
-  if (counter < cost) {
-    return;
+const upgradeContainer = document.getElementById("upgradeButtons")!;
+const upgradeDescriptionsContainer = document.getElementById(
+  "upgradeDescriptions",
+)!;
+
+// Create Buttons
+availableItems.forEach((item, index) => {
+  const btn = document.createElement("button");
+  btn.textContent = `${item.name} - Cost: ${
+    item.cost.toFixed(1)
+  } (Owned: ${item.numberOf})`;
+  btn.style.cssText = `
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+  `;
+  btn.addEventListener("click", () => buyUpgrade(index));
+  upgradeContainer.appendChild(btn);
+});
+
+// Create Descriptions
+const descContainer = document.getElementById("upgradeDescriptions")!;
+
+availableItems.forEach((item) => {
+  const desc = document.createElement("p");
+  desc.textContent = item.description;
+  desc.style.margin = "7px"; // remove default spacing
+  descContainer.appendChild(desc);
+});
+
+// Purchase function
+function buyUpgrade(index: number) {
+  const item = availableItems[index];
+  if (counter >= item.cost) {
+    autoInc += item.rate;
+    counter -= item.cost;
+    item.numberOf++;
+    item.cost *= 1.15; // increase cost by 15%
+    updateDisplay();
   }
+}
 
-  counter -= cost;
-  autoInc += 0.1;
-  cost *= 1.15;
-  counterElement.innerHTML = counter.toFixed(4);
-  autoIncBuy1.innerHTML = "Buy Entry-level programmer: " + cost.toFixed(1);
-  upgradeCountElem.innerHTML = (autoInc * 10).toFixed(1);
+// Update all visible info
+function updateDisplay() {
+  counterDisplay.textContent = counter.toFixed(1);
+
+  // Update buttons
+  const buttons = upgradeContainer.querySelectorAll("button");
+  availableItems.forEach((item, i) => {
+    buttons[i].textContent = `${item.name} - Cost: ${
+      item.cost.toFixed(1)
+    } (Owned: ${item.numberOf})`;
+  });
+
   autoIncreaseElem.innerHTML = autoInc.toFixed(1);
-});
+}
 
-autoIncBuy2.addEventListener("click", () => {
-  // upgrade AutoInc
-  if (counter < cost2) {
-    return;
-  }
-
-  counter -= cost2;
-  autoInc += 1.0;
-  cost2 *= 1.15;
-  counterElement.innerHTML = counter.toFixed(4);
-  autoIncBuy2.innerHTML = "Buy Server Farm: " + cost2.toFixed(1);
-  upgradeCountElem.innerHTML = autoInc.toString();
-  autoIncreaseElem.innerHTML = autoInc.toFixed(1);
-});
-
-autoIncBuy3.addEventListener("click", () => {
-  // upgrade AutoInc
-  if (counter < cost3) {
-    return;
-  }
-
-  counter -= cost3;
-  autoInc += 10.0;
-  cost3 *= 1.15;
-  counterElement.innerHTML = counter.toFixed(4);
-  autoIncBuy3.innerHTML = "Buy Senior Software Engineer: " + cost3.toFixed(1);
-  upgradeCountElem.innerHTML = (autoInc * 10).toString();
-  autoIncreaseElem.innerHTML = autoInc.toFixed(1);
-});
-
+// update counter dynamically
 let lastTime = performance.now();
 
 function update(currentTime: number): void {
@@ -197,7 +191,7 @@ function update(currentTime: number): void {
   lastTime = currentTime;
 
   counter += autoInc * deltaTime;
-  counterElement.innerHTML = counter.toFixed(4);
+  counterDisplay.innerHTML = counter.toFixed(4);
 
   requestAnimationFrame(update);
 }
