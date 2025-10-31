@@ -1,7 +1,7 @@
 import "./style.css";
 
 let counter: number = 0.0;
-let autoInc: number = 0.0;
+let linesPerSecond: number = 0.0;
 
 interface Item {
   name: string;
@@ -11,7 +11,7 @@ interface Item {
   description: string;
 }
 
-const availableItems: Item[] = [
+const upgrades: Item[] = [
   {
     name: "Entry-Level Programmers",
     cost: 10,
@@ -85,7 +85,7 @@ document.body.innerHTML = `
       ">
         <h1 style="margin: 10;">Crack The Code</h1>
         <p style="margin: 4px 20;">Lines of Code: <span id="counter">0.0</span></p>
-        <p style="margin: 4px 0;"><span id="autoIncrease">0.0</span> lines of code per second</p>
+        <p style="margin: 4px 0;"><span id="linesPerSecondrease">0.0</span> lines of code per second</p>
       </div>
       
 
@@ -137,7 +137,7 @@ document.body.innerHTML = `
 // Add click handler
 const button = document.getElementById("playerinc")!;
 const counterDisplay = document.getElementById("counter")!;
-const autoIncreaseElem = document.getElementById("autoIncrease")!;
+const linesPerSecondreaseElem = document.getElementById("linesPerSecondrease")!;
 
 button.addEventListener("click", () => {
   counter += 1;
@@ -146,28 +146,10 @@ button.addEventListener("click", () => {
 
 const upgradeContainer = document.getElementById("upgradeButtons")!;
 
-// Create Buttons
-availableItems.forEach((item, index) => {
-  const btn = document.createElement("button");
-  btn.textContent = `${item.name} - Cost: ${
-    item.cost.toFixed(1)
-  } (Owned: ${item.numberOf})`;
-  btn.style.cssText = `
-    font-size: 16px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: #fff;
-    cursor: pointer;
-  `;
-  btn.addEventListener("click", () => buyUpgrade(index));
-  upgradeContainer.appendChild(btn);
-});
-
 // Create Descriptions
 const descContainer = document.getElementById("upgradeDescriptions")!;
 
-availableItems.forEach((item) => {
+upgrades.forEach((item) => {
   const desc = document.createElement("p");
   desc.textContent = item.description + " - " + item.rate.toFixed(1) +
     " LoC/sec";
@@ -175,11 +157,14 @@ availableItems.forEach((item) => {
   descContainer.appendChild(desc);
 });
 
-// Purchase function
+// Purchase an upgrade by index
+// - Deducts item cost from counter
+// - Increases auto-increment rate by item.rate
+// - Applies 15% cost increase (balance mechanism)
 function buyUpgrade(index: number) {
-  const item = availableItems[index];
+  const item = upgrades[index];
   if (counter >= item.cost) {
-    autoInc += item.rate;
+    linesPerSecond += item.rate;
     counter -= item.cost;
     item.numberOf++;
     item.cost *= 1.15; // increase cost by 15%
@@ -193,13 +178,13 @@ function updateDisplay() {
 
   // Update buttons
   const buttons = upgradeContainer.querySelectorAll("button");
-  availableItems.forEach((item, i) => {
+  upgrades.forEach((item, i) => {
     buttons[i].textContent = `${item.name} - Cost: ${
       item.cost.toFixed(1)
     } (Owned: ${item.numberOf})`;
   });
 
-  autoIncreaseElem.innerHTML = autoInc.toFixed(1);
+  linesPerSecondreaseElem.innerHTML = linesPerSecond.toFixed(1);
 }
 
 // update counter dynamically
@@ -209,7 +194,7 @@ function update(currentTime: number): void {
   const deltaTime = (currentTime - lastTime) / 1000;
   lastTime = currentTime;
 
-  counter += autoInc * deltaTime;
+  counter += linesPerSecond * deltaTime;
   counterDisplay.innerHTML = counter.toFixed(4);
 
   requestAnimationFrame(update);
