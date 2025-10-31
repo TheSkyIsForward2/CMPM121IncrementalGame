@@ -146,6 +146,24 @@ button.addEventListener("click", () => {
 
 const upgradeContainer = document.getElementById("upgradeButtons")!;
 
+// Create Buttons
+upgrades.forEach((item, index) => {
+  const btn = document.createElement("button");
+  btn.textContent = `${item.name} - Cost: ${
+    item.cost.toFixed(1)
+  } (Owned: ${item.numberOf})`;
+  btn.style.cssText = `
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+  `;
+  btn.addEventListener("click", () => buyUpgrade(index));
+  upgradeContainer.appendChild(btn);
+});
+
 // Create Descriptions
 const descContainer = document.getElementById("upgradeDescriptions")!;
 
