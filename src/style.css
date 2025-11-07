@@ -3,3 +3,22 @@
   vertical-align: top;
   border: 1px solid salmon;
 }
+
+/*Idea from Bhan2002*/
+
+/* Idea from ThatGuylain*/
+.mainButton, #codeClickButton {
+  font-size: 6rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.mainButton:hover, #codeClickButton:hover {
+  transform: scale(1.15);
+}
+.mainButton:active, #codeClickButton:active {
+  transform: scale(0.98);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
+}

@@ -88,16 +88,7 @@ document.body.innerHTML = `
         <p style="margin: 4px 0;"><span id="linesPerSecondrease">0.0</span> lines of code per second</p>
       </div>
       
-
-      <!-- Larger button -->
-      <button id="playerinc" style="
-        font-size: 24px;
-        padding: 15px 50px;
-        border: none;
-        border-radius: 10px;
-        background-color: #c8d930ff;
-        cursor: pointer;
-      ">
+      <button class="clickButton mainButton" id="codeClickButton">
         🖥
       </button>
 
@@ -135,7 +126,7 @@ document.body.innerHTML = `
 `;
 
 // Add click handler
-const button = document.getElementById("playerinc")!;
+const button = document.getElementById("codeClickButton")!;
 const counterDisplay = document.getElementById("counter")!;
 const linesPerSecondreaseElem = document.getElementById("linesPerSecondrease")!;
 
@@ -151,7 +142,8 @@ upgrades.forEach((item, index) => {
   const btn = document.createElement("button");
   btn.textContent = `${item.name} - Cost: ${
     item.cost.toFixed(1)
-  } (Owned: ${item.numberOf})`;
+    } (Owned: ${item.numberOf})`;
+  btn.className = "clickButton mainButton";
   btn.style.cssText = `
     font-size: 16px;
     padding: 10px 20px;
