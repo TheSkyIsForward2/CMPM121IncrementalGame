@@ -142,7 +142,7 @@ upgrades.forEach((item, index) => {
   const btn = document.createElement("button");
   btn.textContent = `${item.name} - Cost: ${
     item.cost.toFixed(1)
-    } (Owned: ${item.numberOf})`;
+  } (Owned: ${item.numberOf})`;
   btn.className = "clickButton mainButton";
   btn.style.cssText = `
     font-size: 16px;
