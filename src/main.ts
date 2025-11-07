@@ -1,5 +1,8 @@
 import "./style.css";
 
+// idea from InvinciblePyro
+const audioElement = new Audio("./src/groovy-vibe-427121.mp3");
+
 let counter: number = 0.0;
 let linesPerSecond: number = 0.0;
 
@@ -196,6 +199,16 @@ function updateDisplay() {
 
   linesPerSecondreaseElem.innerHTML = linesPerSecond.toFixed(1);
 }
+
+audioElement.currentTime = 0;
+audioElement.loop = true;
+
+function startMusicOnce() {
+  audioElement.play();
+  document.removeEventListener("click", startMusicOnce);
+}
+
+document.addEventListener("click", startMusicOnce);
 
 // update counter dynamically
 let lastTime = performance.now();
